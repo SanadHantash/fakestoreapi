@@ -1,0 +1,17 @@
+#card{
+    display: grid;
+    grid-template-columns:repeat(4,350px); 
+    row-gap: 5px;
+    column-gap:5px;
+}
+
+img {
+    position: relative;
+    left: 85px;
+    top: 10px;
+}
+
+span{
+    position:relative;
+    left:100px;
+}
