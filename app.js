@@ -27,8 +27,8 @@
 // }
 
 // getdata();
-
-
+//json-server
+//post
 let post = document.getElementById("post");
 
 post.addEventListener("click",(e)=>{
@@ -50,7 +50,7 @@ post.addEventListener("click",(e)=>{
     
 })
 
-
+//get
 class Post{
     constructor(id,title,content){
         this.id = id;
@@ -73,7 +73,7 @@ class Post{
                         <h5>${post.title}</h5>
                         <p>${post.content}</p>
                         <span>
-                        <button class="btn btn-outline-success update" data-id = "${post.id}" type="submit">update</button>
+                        <button class="btn btn-outline-success update"  onclick="updatePost(${post.id})">update</button>
                         <button type="button" class="btn btn-outline-danger" onclick="deletePost(${post.id})">Delete</button>
                         `;
                         cards.appendChild(card);
@@ -82,8 +82,44 @@ class Post{
     }
     
     getdata();
+//Update
+    function updatePost(postId) {
 
+    const updatedTitle = prompt('Enter the Title:', '');
+    const updatedContent = prompt('Enter the updated content:', '');
 
+    if (updatedContent !== null) {
+        fetch(`http://localhost:3000/posts/${postId}`, {
+            method: "PUT", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title:updatedTitle,
+                content: updatedContent }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(updatedPost => {
+                console.log("Post updated:", updatedPost);
+
+                const postElement = document.getElementById(`post_${postId}`);
+                if (postElement) {
+                    const contentElement = postElement.querySelector('p');
+                    if (contentElement) {
+                        contentElement.textContent = updatedPost.content;
+                    }
+                }
+            })
+            .catch(error => console.error("Error updating post:", error));
+    }
+}
+
+//Delete
     function deletePost(postId) {
     fetch(`http://localhost:3000/posts/${postId}`, {
         method: "DELETE",
@@ -107,16 +143,4 @@ class Post{
         })
         .catch(error => console.error("Error deleting post:", error));
 }
-
-
-// card.addEventListener("click", function (e) {
-//     if (e.target.classList.contains("remove")) {
-//         const postId = e.target.getAttribute("data-id");
-
-//         fetch('http://localhost:3000/posts/${postId}', {
-//             method: "DELETE",
-//         })
-//         .then(() => fetchPosts())
-//         .catch((error) => console.error("Error:", error));
-//     }});
 

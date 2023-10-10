@@ -16,3 +16,12 @@ span{
     position:relative;
     left:100px;
 }
+
+
+@media (max-width: 768px) {
+
+    #card{
+        grid-template-columns: repeat(1, 1fr);
+    }
+   
+}

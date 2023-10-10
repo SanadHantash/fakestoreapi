@@ -1,37 +1,19 @@
 {
   "posts": [
     {
-      "id": 5
+      "title": "second",
+      "content": "second post",
+      "id": 1
     },
     {
-      "title": "aa",
-      "content": "ewe",
-      "id": 6
+      "title": "Third",
+      "content": "third post",
+      "id": 2
     },
     {
-      "title": "qq",
-      "content": "22",
-      "id": 7
-    },
-    {
-      "title": "ff",
-      "content": "rr",
-      "id": 8
-    },
-    {
-      "title": "nmn",
-      "content": "jkhjb",
-      "id": 9
-    },
-    {
-      "title": "",
-      "content": "",
-      "id": 10
-    },
-    {
-      "title": " x",
-      "content": "dsd",
-      "id": 11
+      "title": "Fourth",
+      "content": "fourth post",
+      "id": 3
     }
   ]
 }
