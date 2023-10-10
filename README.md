@@ -1,3 +1,3 @@
 # fakestoreapi
 
-## crud with api and using json-server
+## using crud with api and  json-server
