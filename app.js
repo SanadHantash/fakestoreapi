@@ -74,8 +74,7 @@ class Post{
                         <p>${post.content}</p>
                         <span>
                         <button class="btn btn-outline-success update" data-id = "${post.id}" type="submit">update</button>
-                        <button class="btn btn-outline-success remove" data-id = "${post.id}" tybe="submit">remove</button>
-                        </span>
+                        <button type="button" class="btn btn-outline-danger" onclick="deletePost(${post.id})">Delete</button>
                         `;
                         cards.appendChild(card);
         })
@@ -85,14 +84,39 @@ class Post{
     getdata();
 
 
-card.addEventListener("click", function (e) {
-    if (e.target.classList.contains("remove")) {
-        const postId = e.target.getAttribute("data-id");
-
-        fetch('http://localhost:3000/posts/${postId}', {
-            method: "DELETE",
+    function deletePost(postId) {
+    fetch(`http://localhost:3000/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
-        .then(() => fetchPosts())
-        .catch((error) => console.error("Error:", error));
-    }});
+        .then(deletedPost => {
+            console.log("Post deleted:", deletedPost);
+            // Optionally, remove the post element from the UI
+            const postElement = document.getElementById(`post_${postId}`);
+            if (postElement) {
+                postElement.remove();
+            }
+        })
+        .catch(error => console.error("Error deleting post:", error));
+}
+
+
+// card.addEventListener("click", function (e) {
+//     if (e.target.classList.contains("remove")) {
+//         const postId = e.target.getAttribute("data-id");
+
+//         fetch('http://localhost:3000/posts/${postId}', {
+//             method: "DELETE",
+//         })
+//         .then(() => fetchPosts())
+//         .catch((error) => console.error("Error:", error));
+//     }});
 
